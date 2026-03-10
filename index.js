@@ -1,36 +1,40 @@
+function updateClock() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    const seconds = now.getSeconds().toString().padStart(2, "0");
+    const timeString = `${hours}:${minutes}:${seconds}`;
 
-
-function updateClock()
-{
-const preload = new Image();
-preload.src = "background2.jpg";
-const now = new Date();
-const hours = now.getHours().toString().padStart(2,0);
-const minutes = now.getMinutes().toString().padStart(2,0);
-const seconds = now.getSeconds().toString().padStart(2,0);
-const timeString = `${hours}:${minutes}:${seconds}`;
-document.getElementById("clock").textContent = timeString;
-
+    document.getElementById("clock").textContent = timeString;
 }
 
 updateClock();
-setInterval(updateClock,1000);
+setInterval(updateClock, 1000);
 
 const bgSwitcher = document.getElementById("bgSwitcher");
+const body = document.body;
 
-let currentbackground = 1;
+const backgrounds = (body.dataset.backgrounds || "background.jpg,background2.jpg")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
 
-bgSwitcher.addEventListener("click", () => {
-
-
-if(currentbackground ===1){
-    document.body.style.backgroundImage = 'url("background2.jpg")';
-    currentbackground = 2;
-}
-else{
-    document.body.style.backgroundImage = 'url("background.jpg")';
-    currentbackground = 1;
-}
-
+backgrounds.forEach((bg) => {
+    const preload = new Image();
+    preload.src = bg;
 });
 
+let currentBackgroundIndex = 0;
+
+if (backgrounds.length > 0) {
+    body.style.backgroundImage = `url("${backgrounds[currentBackgroundIndex]}")`;
+}
+
+bgSwitcher.addEventListener("click", () => {
+    if (backgrounds.length === 0) {
+        return;
+    }
+
+    currentBackgroundIndex = (currentBackgroundIndex + 1) % backgrounds.length;
+    body.style.backgroundImage = `url("${backgrounds[currentBackgroundIndex]}")`;
+});
