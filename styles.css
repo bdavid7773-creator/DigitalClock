@@ -1,38 +1,44 @@
-body{
+html,
+body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    min-height: 100dvh;
     background-image: url(background.jpg);
     background-position: center;
     background-size: cover;
-    background-attachment: fixed;
-    margin:0;
-    overflow: hidden;
-    
-
-}
-
-#clock-container{
-
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    
+    overflow: hidden;
 }
 
-#clock{
+#clock-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#clock {
     font-family: monospace;
     font-size: 6.5rem;
     font-weight: bold;
     text-align: center;
-    color:rgb(250, 250, 250);
+    color: rgb(250, 250, 250);
     backdrop-filter: blur(5px);
     width: 100%;
     background-color: hwb(0 0% 100% / 0.100);
 }
 
-#bgSwitcher{
-   cursor:pointer;
-   width:35px;
-   top:100px;
+#bgSwitcher {
+    cursor: pointer;
+    width: 35px;
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 10;
 }
-
-
